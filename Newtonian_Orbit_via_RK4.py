@@ -10,12 +10,15 @@ def derivatives(state):
     #distance
     r = np.sqrt(x**2 + y**2)
 
-    #cool formulas
+    #cool formula: flat-space Newtonian gravity F = G * m_1 * m_2 / r^2
+    # F = a * m2 => a = F/m2 => a = G * m_1 / r^2
+    # x/r distance in the x direction
     ax = -G * M * x / r**3
     ay = -G * M * y / r**3
 
     return np.array([vx, vy, ax, ay])
 
+#Runge-Kutta 4th Order
 def rk4_step(state, dt):
     k1 = derivatives(state)
     k2 = derivatives(state + 0.5 * dt * k1)
