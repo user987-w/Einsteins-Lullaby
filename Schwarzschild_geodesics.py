@@ -21,10 +21,10 @@ def geodesics(state):
     dr = vr
     dphi = vphi
     
-    # 2. Schwarzschild Geodesic Equation
+    # Schwarzschild Geodesic Equation
     dvr = -M / r**2 + r * vphi**2 - 3.0 * M * vphi**2
     
-    # 3. Angular Acceleration
+    # Angular Acceleration
     dvphi = -2.0 * vr * vphi / r
     
     return np.array([dr, dphi, dvr, dvphi])
@@ -37,7 +37,9 @@ def rk4_step(state, dt):
     k4 = geodesics(state + dt * k3)
     return state + (dt / 6.0) * (k1 + 2*k2 + 2*k3 + k4)
 
-initial_state = np.array([7.0, 0.0, 0.0, 0.052]) 
+r_init = 8.43 
+vphi_init = np.sqrt(M / (r_init**3 - 3.0 * M * r_init**2))
+initial_state = np.array([r_init, 0.0, 0.0, vphi_init])
 
 dt = 0.05
 total_steps = 12000
